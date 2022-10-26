@@ -11,7 +11,7 @@
 #define IBEACON_DEVICE_NAME  "M5Stamp"
 #endif
 
-long ibeacon_initialize(const uint8_t *p_uuid, uint16_t major, uint16_t minor);
+long ibeacon_initialize(const uint8_t *p_uuid, uint16_t major, uint16_t minor, uint8_t tx);
 long ibeacon_start(void);
 long libeacon_stop(void);
 
