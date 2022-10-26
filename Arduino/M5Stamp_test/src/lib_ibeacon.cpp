@@ -7,10 +7,10 @@
 static BLEAdvertising *pAdvertising;
 static bool is_running = false;
 
-long ibeacon_set_device_message(const uint8_t *p_uuid, uint16_t major, uint16_t minor)
+long ibeacon_set_device_message(const uint8_t *p_uuid, uint16_t major, uint16_t minor, uint8_t tx)
 {
   BLEAdvertisementData advertisementData = BLEAdvertisementData();
-//  advertisementData.setFlags(0x06);
+  advertisementData.setFlags(0x06);
   
   std::string strServiceData = "";
 
@@ -28,7 +28,7 @@ long ibeacon_set_device_message(const uint8_t *p_uuid, uint16_t major, uint16_t 
   strServiceData += (char)((major >> 0) & 0xff);
   strServiceData += (char)((minor >> 8) & 0xff);
   strServiceData += (char)((minor >> 0) & 0xff);
-  strServiceData += (char)0xc8; // Measured TxPower
+  strServiceData += (char)tx; // Measured TxPower
 
   advertisementData.addData(strServiceData);
   pAdvertising->setAdvertisementData(advertisementData);
