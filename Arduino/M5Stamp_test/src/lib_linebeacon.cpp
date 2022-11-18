@@ -11,7 +11,7 @@ static uint8_t LINE_BEACON_HWID[5]; // LINE BEACON HWID
 static BLEAdvertising *pAdvertising;
 static bool is_running = false;
 
-long linebeacon_set_device_message(const char *p_device_message)
+long linebeacon_set_device_message(const char *p_device_message, int8_t tx)
 {
   uint8_t message_len = strlen(p_device_message);
   if( message_len < 1 || message_len > 13 )
@@ -37,7 +37,7 @@ long linebeacon_set_device_message(const char *p_device_message)
   strServiceData += LINE_BEACON_HWID[2];
   strServiceData += LINE_BEACON_HWID[3];
   strServiceData += LINE_BEACON_HWID[4];
-  strServiceData += (char)0x7f; // LINE Simple Beacon FrameのMeasured TxPower
+  strServiceData += (char)tx; // LINE Simple Beacon FrameのMeasured TxPower
 
   // LINE Simple Beacon FrameのDevice Message(1-13)
   for( int i = 0 ; i < message_len ; i++ )
@@ -49,7 +49,7 @@ long linebeacon_set_device_message(const char *p_device_message)
   return 0;
 }
 
-long linebeacon_initialize(const uint8_t *p_hwid)
+long linebeacon_initialize(const uint8_t *p_hwid, int8_t tx)
 {
   BLEDevice::init(LINEBEACON_DEVICE_NAME);
 
@@ -62,7 +62,7 @@ long linebeacon_initialize(const uint8_t *p_hwid)
 
   memmove(LINE_BEACON_HWID, p_hwid, sizeof(LINE_BEACON_HWID));
 
-  return linebeacon_set_device_message(LINEBEACON_DEFAULT_DEVICE_MESSAGE);
+  return linebeacon_set_device_message(LINEBEACON_DEFAULT_DEVICE_MESSAGE, tx);
 }
 
 long linebeacon_start(void)
