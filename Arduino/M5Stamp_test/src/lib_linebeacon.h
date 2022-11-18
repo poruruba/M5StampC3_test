@@ -15,7 +15,7 @@
 #endif
 
 long linebeacon_initialize(const uint8_t *p_hwid);
-long linebeacon_set_device_message(const char *p_device_message);
+long linebeacon_set_device_message(const char *p_device_message, int8_t tx);
 long linebeacon_start(void);
 long linebeacon_stop(void);
 
