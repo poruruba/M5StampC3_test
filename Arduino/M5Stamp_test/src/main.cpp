@@ -48,10 +48,10 @@ void setup() {
 //  uint8_t uuid[16] = { 0 };
 //  for( int i = 0 ; i < sizeof(uuid) ; i++ )
 //    uuid[i] = i;
-//  ibeacon_initialize(uuid, 0x1234, 0x5678, 0xc8);
+//  ibeacon_initialize(uuid, 0x1234, 0x5678, -56);
 //  ibeacon_start();
 
-  linebeacon_initialize(LINE_BEACON_HWID);
+  linebeacon_initialize(LINE_BEACON_HWID, -56);
   linebeacon_start();
 
   pixels_begin();
